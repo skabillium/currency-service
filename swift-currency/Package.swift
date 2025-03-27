@@ -21,7 +21,6 @@ let package = Package(
                 .product(name: "MySQLNIO", package: "mysql-nio"),
                 .product(name: "MySQLKit", package: "mysql-kit"),
             ]
-        ),
-        .testTarget(name: "CurrencyTests", dependencies: ["swift-currency"]),
+        )
     ]
 )
