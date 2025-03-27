@@ -1,3 +1,5 @@
+import Hummingbird
+
 struct ErrorResponse: ResponseCodable {
     let code: String
     let message: String

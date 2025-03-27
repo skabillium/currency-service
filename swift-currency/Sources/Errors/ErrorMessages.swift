@@ -1,3 +1,5 @@
+import Hummingbird
+
 enum AppErrorCode: String {
     case unsupportedCurrency = "unsupported_currency"
     case exchangeRateNotFound = "exchange_rate_not_found"
