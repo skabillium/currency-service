@@ -13,3 +13,16 @@ func mustGetEnv(_ key: String) -> String {
     }
     return value
 }
+
+/// Convert an amount from one currency to another
+func convertAmount(amount: Decimal, rate: Double, currencyFrom: Currency, currencyTo: Currency)
+    -> Decimal
+{
+    let amountDouble = Double(truncating: amount as NSNumber)
+    let convertedAmount = amountDouble * rate
+    let decimalDigits = currencyTo.decimalDigits
+    var result = Decimal(convertedAmount)
+    var roundedResult = result
+    NSDecimalRound(&roundedResult, &result, decimalDigits, .plain)
+    return roundedResult
+}
