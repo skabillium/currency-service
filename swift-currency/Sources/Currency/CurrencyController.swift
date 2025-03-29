@@ -5,6 +5,7 @@ import SQLKit
 struct CurrencyController {
     let db: any SQLDatabase
     let currencyService: CurrencyService
+    let exchangeRateService: ExchangeRatesService
 
     func getCurrency(req: Request, context: BasicRequestContext) async throws -> GetCurrencyResponse
     {

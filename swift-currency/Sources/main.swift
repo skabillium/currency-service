@@ -11,12 +11,15 @@ logger.info("Connected to MySQL database")
 
 let router = Router()
 
+let exchangeRateDao = ExchangeRateDao(db: mysql.sql())
+
 let openExchangeRatesClient = OpenExchangeRatesClient(
     appID: mustGetEnv("OPEN_EXCHANGE_RATES_APP_ID"))
-let exchangeRateService = ExchangeRatesService(db: mysql.sql())
+let exchangeRateService = ExchangeRatesService(db: mysql.sql(), dao: exchangeRateDao)
 let currencyService = CurrencyService(db: mysql.sql())
 
-let currencyController = CurrencyController(db: mysql.sql(), currencyService: currencyService)
+let currencyController = CurrencyController(
+    db: mysql.sql(), currencyService: currencyService, exchangeRateService: exchangeRateService)
 let exchangeRateController = ExchangeRateController(
     db: mysql.sql(),
     openExchangeRatesClient: openExchangeRatesClient,
@@ -25,6 +28,8 @@ let exchangeRateController = ExchangeRateController(
 )
 
 router.get("currencies/:currency", use: currencyController.getCurrency)
+router.post("currencies/convert", use: currencyController.convert)
+
 router.get("exchange-rates/:from", use: exchangeRateController.getExchangeRates)
 router.get("exchange-rates/:from/:to", use: exchangeRateController.getExchangeRate)
 
