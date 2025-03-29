@@ -5,7 +5,7 @@ struct Currency: Codable, Identifiable {
     var id: String { code }
 
     let code: String
-    let decimalDigits: UInt8
+    let decimalDigits: Int
     let createdAt: Date
     let updatedAt: Date
 

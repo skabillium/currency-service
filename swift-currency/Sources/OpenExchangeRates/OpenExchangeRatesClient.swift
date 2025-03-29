@@ -18,5 +18,5 @@ struct OpenExchangeRatesClient {
 }
 
 struct OpenExchangeRatesResponse: Codable {
-    let rates: [String: Decimal]
+    let rates: [String: Double]
 }

@@ -21,6 +21,7 @@ struct ExchangeRatesService {
         let now = Date()
         if isWithinPastInterval(exchangeRate.updatedAt, seconds: 3600) {
             logger.info("Exchange rate for \(from) to \(to) is up to date")
+            logger.info("Exchange rate for \(from) to \(to) is \(exchangeRate.rate)")
             return .success(exchangeRate)
         }
 
@@ -90,7 +91,7 @@ struct ExchangeRatesService {
             })
     }
 
-    func batchUpdateRates(from: String, rates: [String: Decimal], updatedAt: Date)
+    func batchUpdateRates(from: String, rates: [String: Double], updatedAt: Date)
         async -> Result<Void, Error>
     {
         do {

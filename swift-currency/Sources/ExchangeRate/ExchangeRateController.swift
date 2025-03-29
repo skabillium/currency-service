@@ -48,7 +48,7 @@ struct ExchangeRateController {
             throw AppError(code: .internalServerError)
         }
 
-        let rates = exchageRates.reduce(into: [String: Decimal]()) { result, exchangeRate in
+        let rates = exchageRates.reduce(into: [String: Double]()) { result, exchangeRate in
             result[exchangeRate.to] = exchangeRate.rate
         }
 
@@ -63,12 +63,12 @@ struct ExchangeRateController {
 struct GetExchangeRatesResponse: ResponseCodable {
     let currency: String
     let updatedAt: Date
-    let rates: [String: Decimal]
+    let rates: [String: Double]
 }
 
 struct GetExchangeRateResponse: ResponseCodable {
     let from: String
     let to: String
-    let rate: Decimal
+    let rate: Double
     let updatedAt: Date
 }
