@@ -11,5 +11,5 @@ swift package resolve
 
 ## Run
 ```sh
-swift run # Run the project
+swift run
 ```
