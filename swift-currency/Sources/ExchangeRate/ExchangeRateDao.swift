@@ -7,29 +7,23 @@ struct ExchangeRateDao {
     let db: any SQLDatabase
 
     func findOne(from: String, to: String) async -> Result<ExchangeRate?, Error> {
-        do {
-            return .success(
-                try await db.select()
-                    .column("*")
-                    .from("exchange_rate")
-                    .where("currency_from", .equal, from)
-                    .where("currency_to", .equal, to)
-                    .first(decoding: ExchangeRate.self))
-        } catch {
-            return .failure(error)
-        }
+        await Task {
+            try await db.select()
+                .column("*")
+                .from("exchange_rate")
+                .where("currency_from", .equal, from)
+                .where("currency_to", .equal, to)
+                .first(decoding: ExchangeRate.self)
+        }.result
     }
 
     func findAll(from: String) async -> Result<[ExchangeRate], Error> {
-        do {
-            return .success(
-                try await db.select()
-                    .column("*")
-                    .from("exchange_rate")
-                    .where("currency_from", .equal, from)
-                    .all(decoding: ExchangeRate.self))
-        } catch {
-            return .failure(error)
-        }
+        await Task {
+            try await db.select()
+                .column("*")
+                .from("exchange_rate")
+                .where("currency_from", .equal, from)
+                .all(decoding: ExchangeRate.self)
+        }.result
     }
 }
